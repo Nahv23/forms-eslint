@@ -1,68 +1,76 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Forms, eslint & prettier
 
-## Available Scripts
+## 1. Eslint & prettier
 
-In the project directory, you can run:
+```
+npx create-react-app my-app
+```
 
-### `npm start`
+Creamos un nuevo proyecto de React. Por defecto, nos viene instalado en el package.json una configuración de eslint para react.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+"eslintConfig": {
+  "extends": "react-app"
+},
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Vamos a añadir una configuración para poder formatear nuestro código al guardar o al cambiar de archivo.
 
-### `npm test`
+1. Instalamos los plugins de [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) y [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) en vscode.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Creamos en la raíz del proyecto un archivo `.eslintrc` que será nuestra propia configuración.
 
-### `npm run build`
+La configuración básica en este punto del archivo sería esta:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+{
+  "extends": ["react-app"],
+  "rules": {
+    "no-console": 2,
+    "quotes": [2, "single", { "avoidEscape" true }]
+  }
+}
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+3. Añadimos los paquetes de prettier como dependencia de desarrollo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm i -D prettier eslint-config-prettier eslint-plugin-prettier
+```
 
-### `npm run eject`
+4. Añadimos la configuración recomendada del plugin de prettier.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+{
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "rules": {
+    "no-console": 2,
+    "quotes": ["error", "single", { "avoidEscape": true }]
+  }
+}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Creamos un archivo .prettierrc
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+{
+  "singleQuote": true,
+  "jsxSingleQuote": true
+}
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+6. Cambiamos las preferencias de vscode: Code -> Preferences -> Settings -> Botón {}
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
+{
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "prettier.disableLanguages": ["js"],
+  "prettier.singleQuote": true,
+  "files.autoSave": "onFocusChange"
+}
+```
