@@ -3,23 +3,42 @@ import { Input, Icon } from 'antd';
 
 class InputField extends Component {
   render() {
-    console.log(this.props);
-    const { onChange, value, icon, placeholder, errors, onblur } = this.props;
+    const {
+      onChange,
+      value,
+      icon,
+      placeholder,
+      errors,
+      onblur,
+      className,
+      type,
+      allowClear
+    } = this.props;
     const hasErrors = errors && errors.length > 0;
     return (
-      <div className="mb-5">
+      <div className={`mb-1 ${className}`}>
         <Input
           onChange={onChange}
           value={value}
-          allowClear
-          {...(icon ? { prefix: <Icon type="user" /> } : null)}
+          {...(icon ? { prefix: <Icon type={icon} /> } : null)}
+          {...(type ? { type } : null)}
+          {...(allowClear ? { allowClear } : null)}
           {...(placeholder ? { placeholder } : null)}
           {...(onblur ? { onBlur: onblur } : null)}
         />
-        {hasErrors && errors.map((error, index) => <p key={index}>{error}</p>)}
+        {hasErrors &&
+          errors.map((error, index) => (
+            <p className="error" key={index}>
+              {error}
+            </p>
+          ))}
       </div>
     );
   }
 }
+
+InputField.defaultProps = {
+  className: ''
+};
 
 export default InputField;

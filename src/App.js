@@ -10,6 +10,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <nav className="mb-2">
+          <div className="logo">
+            <h1>Inserte logo random</h1>
+          </div>
+        </nav>
         <Form />
       </div>
     );
